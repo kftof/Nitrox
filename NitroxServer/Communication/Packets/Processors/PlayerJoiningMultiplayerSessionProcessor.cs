@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using NitroxModel.DataStructures;
@@ -74,15 +74,17 @@ namespace NitroxServer.Communication.Packets.Processors
                 player.QuickSlotsBinding,
                 world.GameData.PDAState.GetInitialPDAData(),
                 world.GameData.StoryGoals.GetInitialStoryGoalData(scheduleKeeper),
-                new HashSet<string>(player.CompletedGoals),
+                player.CompletedGoals,
                 player.Position,
+                player.Rotation,
                 player.SubRootId,
                 player.Stats,
                 GetRemotePlayerData(player),
                 world.EntityManager.GetGlobalRootEntities(),
                 simulations,
                 world.GameMode,
-                player.Permissions
+                player.Permissions,
+                player.PingInstancePreferences.ToDictionary(m => m.Key, m => m.Value)
             );
 
             player.SendPacket(new TimeChange(eventTriggerer.ElapsedSeconds, true));

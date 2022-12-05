@@ -192,6 +192,7 @@ namespace NitroxServer.GameLogic
                     playerContext,
                     connection,
                     NitroxVector3.Zero,
+                    NitroxQuaternion.Identity,
                     playerContext.PlayerNitroxId,
                     Optional.Empty,
                     serverConfig.DefaultPlayerPerm,
@@ -200,7 +201,8 @@ namespace NitroxServer.GameLogic
                     Array.Empty<string>(),
                     new List<EquippedItemData>(),
                     new List<EquippedItemData>(),
-                    new HashSet<string>()
+                    new HashSet<string>(),
+                    new Dictionary<string, PingInstancePreference>()
                 );
                 allPlayersByName[playerContext.PlayerName] = player;
             }

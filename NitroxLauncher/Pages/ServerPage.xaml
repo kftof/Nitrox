@@ -5,21 +5,21 @@
                 xmlns:local="clr-namespace:NitroxLauncher.Models"
                 x:Class="NitroxLauncher.Pages.ServerPage"
                 mc:Ignorable="d"
-                d:DesignHeight="642" d:DesignWidth="750"
+                d:DesignHeight="650" d:DesignWidth="750"
                 DataContext="{Binding RelativeSource={RelativeSource Self}}"
                 Title="Server Page" xmlns:pages="clr-namespace:NitroxLauncher.Pages"
                 xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
     <local:PageBase.Resources>
-        <BitmapImage x:Key="ServerIllustration" UriSource="pack://application:,,,/images/serverIllustration.png"/>
-        <BitmapImage x:Key="ExternalServerRB" UriSource="pack://application:,,,/images/material-design-icons/external-icon.jpg"/>
-        <BitmapImage x:Key="DockedServerRB" UriSource="pack://application:,,,/images/material-design-icons/docked-icon.png"/>
-        <BitmapImage x:Key="SettingsButton" UriSource="pack://application:,,,/images/material-design-icons/options.png"/>
-        <BitmapImage x:Key="TrashcanButton" UriSource="pack://application:,,,/images/material-design-icons/trashcan_icon.png"/>
-        <BitmapImage x:Key="RestoreBackupButton" UriSource="pack://application:,,,/images/material-design-icons/restore-backup-icon.png"/>
-        <BitmapImage x:Key="AddServerButton" UriSource="pack://application:,,,/images/material-design-icons/add_server.png"/>
-        <BitmapImage x:Key="RefreshButton" UriSource="pack://application:,,,/images/material-design-icons/refresh.png"/>
-        <BitmapImage x:Key="GoBackButton" UriSource="pack://application:,,,/images/material-design-icons/go_back.png"/>
+        <BitmapImage x:Key="ServerIllustration" UriSource="pack://application:,,,/Assets/Images/serverIllustration.png"/>
+        <BitmapImage x:Key="ExternalServerRB" UriSource="pack://application:,,,/Assets/Images/world-manager/window-external-2x.png"/>
+        <BitmapImage x:Key="DockedServerRB" UriSource="pack://application:,,,/Assets/Images/world-manager/window-launcher-2x.png"/>
+        <BitmapImage x:Key="SettingsButton" UriSource="pack://application:,,,/Assets/Images/world-manager/details-horizontal-2x.png"/>
+        <BitmapImage x:Key="TrashcanButton" UriSource="pack://application:,,,/Assets/Images/world-manager/delete-2x.png"/>
+        <BitmapImage x:Key="RestoreBackupButton" UriSource="pack://application:,,,/Assets/Images/world-manager/import-2x.png"/>
+        <BitmapImage x:Key="AddServerButton" UriSource="pack://application:,,,/Assets/Images/world-manager/plus-2x.png"/>
+        <BitmapImage x:Key="RefreshButton" UriSource="pack://application:,,,/Assets/Images/world-manager/reload-2x.png"/>
+        <BitmapImage x:Key="GoBackButton" UriSource="pack://application:,,,/Assets/Images/world-manager/back-2x.png"/>
 
         <Storyboard x:Key="WorldSelectedAnimation">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="WorldSelectionPane" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
@@ -63,7 +63,7 @@
         <SolidColorBrush x:Key="ComboBox.Static.Border" Color="Black"/>
         <SolidColorBrush x:Key="ComboBox.Static.Glyph" Color="#FF606060"/>
         <SolidColorBrush x:Key="ComboBox.MouseOver.Background" Color="Black"/>
-        <SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="#FF007BFF"/>
+        <SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="#FF569DE5"/>
         <SolidColorBrush x:Key="ComboBox.MouseOver.Glyph" Color="Gainsboro"/>
         <SolidColorBrush x:Key="ComboBox.Pressed.Background" Color="Black"/>
         <SolidColorBrush x:Key="ComboBox.Pressed.Border" Color="#FF569DE5"/>
@@ -191,7 +191,7 @@
     </local:PageBase.Resources>
 
     <Grid>
-        <Grid HorizontalAlignment="Center" Grid.RowSpan="2">
+        <Grid HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
@@ -222,13 +222,13 @@
                     </Grid.ColumnDefinitions>
 
                     <RadioButton Style="{StaticResource LeftServerSettingRB}" x:Name="RBIsExternal" GroupName="ServerType" ToolTip="Set the server console to launch in a separate CMD window" Click="RBServer_Clicked">
-                        <Image Source="{StaticResource ExternalServerRB}" Stretch="Uniform"  Width="30" Height="30"/>
+                        <Image Source="{StaticResource ExternalServerRB}" Width="24" Height="24"/>
                     </RadioButton>
 
                     <Border Grid.Column="1" Background="Black"/>
 
                     <RadioButton Grid.Column="2" Style="{StaticResource RightServerSettingRB}" x:Name="RBIsDocked" GroupName="ServerType" ToolTip="Set the server console to display within the launcher" Click="RBServer_Clicked">
-                        <Image Source="{StaticResource DockedServerRB}" Stretch="Uniform"  Width="30" Height="30"/>
+                        <Image Source="{StaticResource DockedServerRB}" Width="24" Height="24"/>
                     </RadioButton>
 
                 </Grid>
@@ -239,7 +239,6 @@
 
                 <!-- WORLD SELECTION PANE (In view: Margin="866 16 866 32" | Out of view: Margin="0 16 1732 32") PANE WIDTH: 710 -->
                 <Border CornerRadius="12" Background="#151516" Margin="866 16 866 32" x:Name="WorldSelectionPane" RenderTransformOrigin="0.5,0.5">
-                <!--<Border CornerRadius="12" Background="#151516" Margin="0 16 1732 32" x:Name="WorldSelectionPane" RenderTransformOrigin="0.5,0.5">-->
                     <Border.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -264,13 +263,13 @@
                             </Grid.ColumnDefinitions>
 
                             <Button x:Name="RefreshListingBtn" Click="RefreshListing_Click" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Refresh the world listing">
-                                <Image Source="{StaticResource RefreshButton}" Stretch="Uniform"  Width="40" Height="40"/>
+                                <Image Source="{StaticResource RefreshButton}" Width="18" Height="18" />
                             </Button>
 
                             <TextBlock Grid.Column="1" Text="Your Worlds" Foreground="White" VerticalAlignment="Center" FontSize="24" HorizontalAlignment="Center" FontWeight="Bold"/>
 
                             <Button Grid.Column="2" x:Name="AddWorldBtn" Click="AddWorld_Click" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Add or import a new world">
-                                <Image Source="{StaticResource AddServerButton}" Stretch="Uniform"  Width="40" Height="40"/>
+                                <Image Source="{StaticResource AddServerButton}" Width="24" Height="24"/>
                             </Button>
 
                         </Grid>
@@ -288,210 +287,106 @@
                                     <Image Grid.Row="1" Source="{StaticResource ServerIllustration}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Top" Width="290" Margin="0 15 0 0"/>
                                 </Grid>
 
-                                <ListView Name="WorldListingContainer" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5" HorizontalContentAlignment="Stretch" ScrollViewer.CanContentScroll="False">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                    <ItemsControl Name="WorldListingContainer" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5" HorizontalContentAlignment="Stretch" ScrollViewer.CanContentScroll="True">
+                                        <!-- Template for World Listing Buttons -->
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border x:Name="WorldListingBorder" Height="83" Width="Auto" Background="#FF151516" CornerRadius="7" Margin="0 3">
+                                                    <Grid Width="Auto" MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
 
-                                    <!-- OPTIONAL - View server listing buttons in Intellisense window -->
-                                    <d:ListView.ItemsSource>
-                                        <x:Array Type="pages:WorldListing">
-                                            <pages:WorldListing WorldName = "Survival w/ friends" WorldGamemode = "Survival" WorldVersion = "v1.6.0.0" IsValidSave = "True"/>
-                                            <pages:WorldListing WorldName = "My World 1" WorldGamemode = "Freedom" WorldVersion = "v1.5.0.2" IsValidSave = "True"/>
-                                            <pages:WorldListing WorldName = "v1.7 pre-release test" WorldGamemode = "Freedom" WorldVersion = "v1.7.0.0" IsValidSave = "False"/>
-                                            <pages:WorldListing WorldName = "Old World" WorldGamemode = "Survival" WorldVersion = "v1.3.0.0" IsValidSave = "False"/>
-                                            <pages:WorldListing WorldName = "Creative Mode" WorldGamemode = "Creative" WorldVersion = "v1.6.0.0" IsValidSave = "True"/>
-                                            <pages:WorldListing WorldName = "v1.6.0.1 testing" WorldGamemode = "Freedom" WorldVersion = "v1.6.0.1" IsValidSave = "True"/>
-                                        </x:Array>
-                                    </d:ListView.ItemsSource>
+                                                        <!-- Select World Button -->
+                                                        <Button x:Name="WorldSelectBtn" Click="StartServer_Click" Style="{StaticResource WorldListingButton}" ToolTip="Select this world" Foreground="White" HorizontalAlignment="Stretch" Width="Auto" Focusable="False">
+                                                            <DockPanel Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Button}}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Button}}" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                                                                <!-- World Name -->
+                                                                <TextBlock Grid.Column="0" FontSize="16" Foreground="White" Text="{Binding WorldName, Mode=OneTime}" VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="20 0 0 0" MaxWidth="400"/>
 
-                                    <!-- Fix the Scroll Bar -->
-                                    <ListView.Resources>
-                                        <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                                                                <!-- World Data -->
+                                                                <DockPanel Grid.Column="1" LastChildFill="True" Margin="0 10 10 10" HorizontalAlignment="Right">
+                                                                    <TextBlock DockPanel.Dock = "Top" HorizontalAlignment="Right" FontSize="10" Text="{Binding WorldGamemode, FallbackValue=Gamemode, Mode=OneTime}" Foreground="White"/>
+                                                                    <TextBlock DockPanel.Dock = "Bottom" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="10" Text="{Binding WorldVersion, FallbackValue=Version, Mode=OneTime}">
+                                                                        <TextBlock.Style>
+                                                                            <Style TargetType="TextBlock">
+                                                                                <Setter Property="Foreground" Value="White"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding IsValidSave, FallbackValue=True, Mode=TwoWay}" Value="False">
+                                                                                        <Setter Property="Foreground" Value="Red"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </TextBlock.Style>
+                                                                    </TextBlock>
+                                                                </DockPanel>
 
-                                                        <Grid x:Name="GridRoot" Width="6" Background="{x:Null}" Margin="0 -1 0 0">
-                                                            <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="False">
-                                                                <Track.Thumb>
-                                                                    <Thumb x:Name="Thumb" Background="#26FFFFFF" Style="{DynamicResource ScrollThumbs}"/>
-                                                                </Track.Thumb>
-                                                                <Track.IncreaseRepeatButton>
-                                                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="False"/>
-                                                                </Track.IncreaseRepeatButton>
-                                                                <Track.DecreaseRepeatButton>
-                                                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="False"/>
-                                                                </Track.DecreaseRepeatButton>
-                                                            </Track>
-                                                        </Grid>
-
-                                                        <ControlTemplate.Triggers>
-                                                            <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
-                                                                <Setter Value="#3FFFFFFF" TargetName="Thumb" Property="Background"/>
-                                                            </Trigger>
-                                                            <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
-                                                                <Setter Value="{DynamicResource DarkBrush}" TargetName="Thumb" Property="Background"/>
-                                                            </Trigger>
-
-                                                            <Trigger Property="IsEnabled" Value="false">
-                                                                <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed"/>
-                                                            </Trigger>
-                                                            <Trigger Property="Orientation" Value="Horizontal">
-                                                                <Setter TargetName="GridRoot" Property="LayoutTransform">
-                                                                    <Setter.Value>
-                                                                        <RotateTransform Angle="-90"/>
-                                                                    </Setter.Value>
-                                                                </Setter>
-                                                                <Setter TargetName="PART_Track" Property="LayoutTransform">
-                                                                    <Setter.Value>
-                                                                        <RotateTransform Angle="-90"/>
-                                                                    </Setter.Value>
-                                                                </Setter>
-                                                                <Setter Property="Width" Value="Auto"/>
-                                                                <Setter Property="Height" Value="12"/>
-                                                                <Setter TargetName="Thumb" Property="Tag" Value="Horizontal"/>
-                                                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand"/>
-                                                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand"/>
-                                                            </Trigger>
-                                                        </ControlTemplate.Triggers>
-
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </ListView.Resources>
-
-                                    <!-- Template for World Listing Buttons -->
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-
-                                            <Border x:Name="WorldListingBorder" Height="83" Width="Auto" Background="#FF151516" CornerRadius="7" Margin="0 3">
-                                                <Grid Width="Auto" MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*"/>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <!-- Select World Button -->
-                                                    <Button x:Name="WorldSelectBtn" Click="StartServer_Click" Style="{StaticResource WorldListingButton}" ToolTip="Select this world" Foreground="White" Height="83" HorizontalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Stretch" IsEnabled="{Binding Path=IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}">
-                                                        <DockPanel Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Button}}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Button}}" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                                                            <!-- World Name -->
-                                                            <TextBlock Grid.Column="0" FontSize="16" Foreground="White" Text="{Binding WorldName, Mode=OneTime}" VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="20 0 0 0" MaxWidth="400"/>
-
-                                                            <!-- World Data -->
-                                                            <DockPanel Grid.Column="1" LastChildFill = "True" Margin="0 10 10 10" HorizontalAlignment="Right">
-                                                                <TextBlock DockPanel.Dock = "Top" HorizontalAlignment="Right" FontSize="10" Text="{Binding WorldGamemode, FallbackValue=Gamemode, Mode=OneTime}" Foreground="White"/>
-                                                                <TextBlock DockPanel.Dock = "Bottom" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="10" Text="{Binding WorldVersion, FallbackValue=Version, Mode=OneTime}">
-                                                                    <TextBlock.Style>
-                                                                        <Style TargetType="TextBlock">
-                                                                            <Setter Property="Foreground" Value="White"/>
-                                                                            <Style.Triggers>
-                                                                                <DataTrigger Binding="{Binding IsValidSave, FallbackValue=True, Mode=TwoWay}" Value="False">
-                                                                                    <Setter Property="Foreground" Value="Red"/>
-                                                                                </DataTrigger>
-                                                                            </Style.Triggers>
-                                                                        </Style>
-                                                                    </TextBlock.Style>
-                                                                </TextBlock>
                                                             </DockPanel>
-
-                                                        </DockPanel>
-                                                    </Button>
-
-                                                    <!-- Separator -->
-                                                    <Border x:Name="SeparatorBox" Grid.Column="1" Background="Black" Width="0"/>
-
-                                                    <!-- World Options Pop-up -->
-                                                    <Grid x:Name="WorldOptionsBox" Grid.Column="2" Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Border}}" Width="0">
-                                                        <Grid.RowDefinitions>
-                                                            <RowDefinition/>
-                                                            <RowDefinition Height="5"/>
-                                                            <RowDefinition/>
-                                                        </Grid.RowDefinitions>
-
-                                                        <!-- World Settings Button -->
-                                                        <Button ToolTip="Edit the settings of this world" Click="SelectedWorldSettings_Click" IsEnabled="{Binding Path=IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}" Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Grid}}" Width="{Binding Width, RelativeSource={RelativeSource AncestorType=Grid}}">
-                                                            <Image Source="{StaticResource SettingsButton}" Stretch="Uniform"  Width="25" Height="25" Opacity="0.7"/>
                                                         </Button>
 
                                                         <!-- Separator -->
-                                                        <Border Grid.Row="1" Background="Black"/>
+                                                        <Border x:Name="SeparatorBox" Grid.Column="1" Background="Black" Width="0"/>
 
-                                                        <!-- Delete World Button -->
-                                                        <Button Grid.Row="2" ToolTip="Delete this world" Click="DeleteWorld_Click" IsEnabled="{Binding Path=IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}" Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Grid}}" Width="{Binding Width, RelativeSource={RelativeSource AncestorType=Grid}}">
-                                                            <Image Source="{StaticResource TrashcanButton}" Stretch="Uniform"  Width="25" Height="25"/>
-                                                        </Button>
+                                                        <!-- World Options Pop-up -->
+                                                        <Grid x:Name="WorldOptionsBox" Grid.Column="2" Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Border}}" Width="0">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition/>
+                                                                <RowDefinition Height="2"/>
+                                                                <RowDefinition/>
+                                                            </Grid.RowDefinitions>
 
+                                                            <!-- World Settings Button -->
+                                                            <Button ToolTip="Edit the settings of this world" Click="SelectedWorldSettings_Click" Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Grid}}" Width="{Binding Width, RelativeSource={RelativeSource AncestorType=Grid}}">
+                                                                <Image Source="{StaticResource SettingsButton}" Width="20" Height="20"/>
+                                                            </Button>
+
+                                                            <!-- Separator -->
+                                                            <Border Grid.Row="1" Background="Black"/>
+
+                                                            <!-- Delete World Button -->
+                                                            <Button Grid.Row="2" ToolTip="Delete this world" Click="DeleteWorld_Click" Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Grid}}" Width="{Binding Width, RelativeSource={RelativeSource AncestorType=Grid}}">
+                                                                <Image Source="{StaticResource TrashcanButton}" Width="20" Height="20"/>
+                                                            </Button>
+                                                        </Grid>
                                                     </Grid>
+                                                </Border>
 
-                                                    <!-- ListViewItem Highlighting -->
-                                                    <Border Grid.ColumnSpan="3" Background="Transparent" BorderThickness="3" CornerRadius="8" Margin="-3" IsHitTestVisible="False">
-                                                        <Border.Style>
-                                                            <Style TargetType="Border">
-                                                                <Setter Property="BorderBrush" Value="Transparent"/>
-                                                                <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}" Value="True">
-                                                                        <Setter Property="BorderBrush" Value="#FF007BFF"/>
-                                                                    </DataTrigger>
-                                                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}" Value="True">
-                                                                        <Setter Property="BorderBrush" Value="Blue"/>
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Border.Style>
-                                                    </Border>
+                                                <!-- World Options Pop-up Animation Logic -->
+                                                <DataTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Trigger.EnterActions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SeparatorBox" Storyboard.TargetProperty="Width">
+                                                                        <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="2"/>
+                                                                    </DoubleAnimationUsingKeyFrames>
+                                                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="WorldOptionsBox" Storyboard.TargetProperty="Width">
+                                                                        <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="40"/>
+                                                                    </DoubleAnimationUsingKeyFrames>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </Trigger.EnterActions>
+                                                        <Trigger.ExitActions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SeparatorBox" Storyboard.TargetProperty="Width">
+                                                                        <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="0"/>
+                                                                    </DoubleAnimationUsingKeyFrames>
+                                                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="WorldOptionsBox" Storyboard.TargetProperty="Width">
+                                                                        <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="0"/>
+                                                                    </DoubleAnimationUsingKeyFrames>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </Trigger.ExitActions>
+                                                    </Trigger>
+                                                </DataTemplate.Triggers>
 
-                                                </Grid>
-                                            </Border>
-
-                                            <!-- World Options Pop-up Animation Logic -->
-                                            <DataTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Trigger.EnterActions>
-                                                        <BeginStoryboard>
-                                                            <Storyboard>
-                                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SeparatorBox" Storyboard.TargetProperty="Width">
-                                                                    <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="5"/>
-                                                                </DoubleAnimationUsingKeyFrames>
-                                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="WorldOptionsBox" Storyboard.TargetProperty="Width">
-                                                                    <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="45"/>
-                                                                </DoubleAnimationUsingKeyFrames>
-                                                            </Storyboard>
-                                                        </BeginStoryboard>
-                                                    </Trigger.EnterActions>
-                                                    <Trigger.ExitActions>
-                                                        <BeginStoryboard>
-                                                            <Storyboard>
-                                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SeparatorBox" Storyboard.TargetProperty="Width">
-                                                                    <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="0"/>
-                                                                </DoubleAnimationUsingKeyFrames>
-                                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="WorldOptionsBox" Storyboard.TargetProperty="Width">
-                                                                    <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="0"/>
-                                                                </DoubleAnimationUsingKeyFrames>
-                                                            </Storyboard>
-                                                        </BeginStoryboard>
-                                                    </Trigger.ExitActions>
-                                                </Trigger>
-                                            </DataTemplate.Triggers>
-
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-
-                                    <!-- Remove the default highlight box for listviewitem selection -->
-                                    <ListView.ItemContainerStyle>
-                                        <Style TargetType="{x:Type ListViewItem}">
-                                            <Setter Property="Background" Value="Transparent"/>
-
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                                        <ContentPresenter Margin="5 2"/>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
-
-                                </ListView>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
                             </Grid>
                         </Border>
                     </Grid>
@@ -511,8 +406,7 @@
                     </Grid.RenderTransform>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <!-- WORLD OPTIONS -->
@@ -533,14 +427,14 @@
 
                                 <!-- Go Back button -->
                                 <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Save settings and select a different world" Click="GoBack_Click">
-                                    <Image Source="{StaticResource GoBackButton}" Stretch="Uniform" Width="40" Height="40"/>
+                                    <Image Source="{StaticResource GoBackButton}" Width="18" Height="18"/>
                                 </Button>
 
                                 <TextBlock Grid.Column="1" Text="World Settings" Foreground="White" VerticalAlignment="Center" FontSize="24" HorizontalAlignment="Center" FontWeight="Bold"/>
 
                                 <!-- Import Save File button -->
                                 <Border x:Name="ImportSaveBtnBorder" Grid.Column="1" Grid.ColumnSpan="2" Background="#FF007BFF" CornerRadius="8" Width="150" HorizontalAlignment="Right" Margin="0 14" Opacity="0">
-                                    <Button x:Name="ImportSaveBtn" Click="ImportSaveBtn_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsEnabled="False" ToolTip="Import a save file">
+                                    <Button x:Name="ImportSaveBtn" Click="ImportSaveBtn_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsEnabled="False" ToolTip="Import a save file" Cursor="Hand">
                                         <TextBlock Text="Import a save file" FontSize="15"/>
                                     </Button>
                                 </Border>
@@ -617,39 +511,45 @@
                                         </Grid.RowDefinitions>
 
                                         <!-- World Name and Seed (1st Row) -->
-                                        <Grid Margin="0 0 0 10" VerticalAlignment="Top">
+                                        <Grid Margin="0 0 0 10">
+
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="1.4*"/>
-                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="100" />
+                                                <ColumnDefinition Width="300"/>
+                                                <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
 
-                                            <!-- Name -->
-                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                <TextBlock Text="Name:  " Foreground="White" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                <Border BorderBrush ="#333437" Background="#333437" BorderThickness="1" CornerRadius="8" Margin="0">
-                                                    <TextBox x:Name="TBWorldName"
-                                                        FontSize="18" MaxLines="1" ToolTip="Set the world name"
-                                                        Foreground="#8A8A8A" TextAlignment="Left"
-                                                        Background="{x:Null}" BorderBrush="{x:Null}"
-                                                        Margin="13,4,13,4" SelectionBrush="#FF007BFF"
-                                                        VerticalAlignment="Center" BorderThickness="0"
-                                                        CaretBrush="White" Width="250" MaxLength="44" Text="WorldName" LostKeyboardFocus="TBWorldName_Input">
-                                                    </TextBox>
-                                                </Border>
-                                            </StackPanel>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="15" />
+                                                <RowDefinition Height="30"/>
+                                            </Grid.RowDefinitions>
 
-                                            <!-- Seed -->
-                                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Right">
-                                                <TextBlock Text="Seed:  " Foreground="White" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                <Border BorderBrush ="#333437" Background="#333437" BorderThickness="1" CornerRadius="8" Margin="0">
-                                                    <TextBox x:Name="TBWorldSeed" ToolTip="Set the seed the world would use when created. Leave empty to generate a random seed"
-                                                        FontSize="18" MaxLines="1" FontStyle="Italic"
+                                            <!-- Row 0 -->
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Name" Foreground="White" FontSize="20" FontWeight="SemiBold" />
+
+                                            <Border Grid.Row="0" Grid.Column="1" BorderBrush="#333437" Width="280" HorizontalAlignment="Left" Background="#333437" BorderThickness="1" CornerRadius="5">
+                                                <TextBox x:Name="TBWorldName"
+                                                        ToolTip="Set the world name"
+                                                        FontSize="18" MaxLines="1" TextAlignment="Left"
+                                                        Foreground="#8A8A8A" SelectionBrush="#FF007BFF"
+                                                        Background="{x:Null}" BorderBrush="{x:Null}"
+                                                        Margin="13,4,13,4" 
+                                                        VerticalAlignment="Center" BorderThickness="0"
+                                                        CaretBrush="White" MaxLength="40" Text="World name" LostKeyboardFocus="TBWorldName_Input" />
+                                            </Border>
+
+                                            <!-- Row 2 -->
+                                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Seed" Foreground="White" FontSize="20" FontWeight="SemiBold"/>
+                                            <Border Grid.Row="2" Grid.Column="1" Width="140" BorderBrush="#333437" HorizontalAlignment="Left" Background="#333437" BorderThickness="1" CornerRadius="5">
+                                                <TextBox x:Name="TBWorldSeed"
+                                                        ToolTip="Set the seed the world would use when created. Leave empty to generate a random seed"
+                                                        FontSize="18" MaxLines="1"
                                                         Foreground="#8A8A8A" TextAlignment="Left"
                                                         Background="{x:Null}" BorderBrush="{x:Null}"
                                                         Margin="13,4,13,4" SelectionBrush="#FF007BFF"
-                                                        VerticalAlignment="Center" BorderThickness="0" CaretBrush="White" Width="155" MaxLength="10" Text="WorldSeed" LostKeyboardFocus="TBWorldSeed_Input" IsReadOnly="{Binding IsNewWorld, FallbackValue=False, Mode=OneWay}"/>
-                                                </Border>
-                                            </StackPanel>
+                                                        VerticalAlignment="Center" BorderThickness="0" CaretBrush="White" MaxLength="10" LostKeyboardFocus="TBWorldSeed_Input" IsReadOnly="{Binding IsNewWorld, FallbackValue=False, Mode=OneWay}"/>
+                                            </Border>
                                         </Grid>
 
                                         <!-- World Gamemode -->
@@ -672,7 +572,7 @@
                                                 </Grid.ColumnDefinitions>
 
                                                 <!-- Freedom Mode Button -->
-                                                <RadioButton Style="{StaticResource WorldGamemodeButton}" x:Name="RBFreedom" GroupName="ServerGamemode" HorizontalAlignment="Left" VerticalAlignment="Center" ToolTip="Set the World Gamemode to Freedom Mode">
+                                                <RadioButton Style="{StaticResource WorldGamemodeButton}" x:Name="RBFreedom" GroupName="ServerGamemode" VerticalAlignment="Center" ToolTip="Set the World Gamemode to Freedom Mode">
                                                     <TextBlock Text="Freedom" FontSize="18"/>
                                                 </RadioButton>
 
@@ -739,8 +639,7 @@
                                                             Background="{x:Null}" BorderBrush="{x:Null}"
                                                             Margin="4" SelectionBrush="#FF007BFF"
                                                             VerticalAlignment="Center" BorderThickness="0"
-                                                            CaretBrush="White" Width="Auto" Text="100" LostKeyboardFocus="TBMaxPlayerCap_Input">
-                                                        </TextBox>
+                                                            CaretBrush="White" Width="Auto" Text="100" LostKeyboardFocus="TBMaxPlayerCap_Input" />
                                                     </Border>
 
                                                     <!-- TODO - Once Mod Support is added -->
@@ -823,8 +722,7 @@
                                                             Background="{x:Null}" BorderBrush="{x:Null}"
                                                             Margin="4" SelectionBrush="#FF007BFF"
                                                             VerticalAlignment="Center" BorderThickness="0"
-                                                            CaretBrush="White" Width="Auto" Text="120" LostKeyboardFocus="TBSaveInterval_Input">
-                                                        </TextBox>
+                                                            CaretBrush="White" Width="Auto" Text="120" LostKeyboardFocus="TBSaveInterval_Input" />
                                                     </Border>
 
                                                     <TextBlock Grid.Row="1" Grid.Column="6" x:Name="JoinPasswordTitle" Text="Join Password" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" FontSize="15" Margin="10 0 0 0"/>
@@ -835,8 +733,7 @@
                                                             Background="{x:Null}" BorderBrush="{x:Null}"
                                                             Margin="4" SelectionBrush="#FF007BFF"
                                                             VerticalAlignment="Center" BorderThickness="0"
-                                                            CaretBrush="White" Width="Auto" LostKeyboardFocus="TBJoinPassword_Input">
-                                                        </TextBox>
+                                                            CaretBrush="White" Width="Auto" LostKeyboardFocus="TBJoinPassword_Input" />
                                                     </Border>
 
                                                     <!-- Row 3 -->
@@ -848,8 +745,7 @@
                                                             Background="{x:Null}" BorderBrush="{x:Null}"
                                                             Margin="4" SelectionBrush="#FF007BFF"
                                                             VerticalAlignment="Center" BorderThickness="0"
-                                                            CaretBrush="White" Width="Auto" MaxLength="5" Text="11000" LostKeyboardFocus="TBWorldServerPort_Input">
-                                                        </TextBox>
+                                                            CaretBrush="White" Width="Auto" MaxLength="5" Text="11000" LostKeyboardFocus="TBWorldServerPort_Input" />
                                                     </Border>
 
                                                     <TextBlock Grid.Row="2" Grid.Column="3" Text="LAN Discovery" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" FontSize="15" Margin="10 0 0 0"/>
@@ -863,64 +759,6 @@
                             </Border>
                         </Grid>
                     </Border>
-
-
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-
-                        <!-- Column 1: (TODO) Restore Backup Button -->
-                        <!--<Button Style="{StaticResource LargeButton}" Click="RestoreBackup_Click" ToolTip="Restore a backup of your world" Background="#151516" Height="62" HorizontalAlignment="Stretch" Margin="0 0 15 0" Width="Auto" >
-                            <Grid Height="53" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Button}}">
-
-                                --> <!-- Grid Definitions --> <!--
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="3.5*"/>
-                                </Grid.ColumnDefinitions>
-
-                                --> <!-- Column 1: Restore Backup Icon --> <!--
-                                <Grid Background="White" Width="45" HorizontalAlignment="Right">
-                                    <Grid.OpacityMask>
-                                        <ImageBrush ImageSource="{StaticResource RestoreBackupButton}" Stretch="Uniform"/>
-                                    </Grid.OpacityMask>
-                                </Grid>
-
-                                --> <!-- Column 2: Restore Backup Text --> <!--
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" FontSize="16" FontWeight="Bold" Text="RESTORE BACKUP" />
-
-                            </Grid>
-                        </Button>-->
-
-                        <!-- Column 3: Delete World Button -->
-                        <Button Grid.Column="1" Style="{StaticResource LargeButton}" x:Name="DeleteWorldBtn" Click="DeleteWorld_Click" ToolTip="Delete this world" Background="Red" Height="62" HorizontalAlignment="Stretch" Margin="15 0 0 0" Width="Auto" >
-                            <Grid Height="53" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Button}}">
-
-                                <!-- Grid Definitions -->
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="3.5*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <!-- Column 1: Delete World Icon -->
-                                <Grid Background="White" Width="30" HorizontalAlignment="Right">
-                                    <Grid.OpacityMask>
-                                        <ImageBrush ImageSource="{StaticResource TrashcanButton}" Stretch="Uniform"/>
-                                    </Grid.OpacityMask>
-                                </Grid>
-
-                                <!-- Column 2: Delete World Text -->
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" FontSize="16" FontWeight="Bold" Text="DELETE WORLD" />
-
-                            </Grid>
-                        </Button>
-
-                    </Grid>
-
 
                 </Grid>
 
@@ -951,7 +789,6 @@
                     <Button Click="NoConfirmBtn_Click" Grid.Row="1" Grid.Column="1" Style="{StaticResource LargeButton}" Background="#FF007BFF" Height="50" Width="100" VerticalAlignment="Top" Content="No"/>
                 </Grid>
             </Border>
-
         </Grid>
 
         <Grid x:Name="ImportWorldBox" Opacity="0" IsHitTestVisible="False" Grid.RowSpan="2">
@@ -979,8 +816,7 @@
                                                         Background="{x:Null}" BorderBrush="{x:Null}"
                                                         Margin="13,4,13,4" SelectionBrush="#FF007BFF"
                                                         VerticalAlignment="Center" BorderThickness="0"
-                                                        CaretBrush="White" MaxLength="25" LostKeyboardFocus="TBImportedWorldName_Input">
-                                    </TextBox>
+                                                        CaretBrush="White" MaxLength="25" LostKeyboardFocus="TBImportedWorldName_Input" />
                                 </Border>
                             </Grid>
                             

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using NitroxClient.GameLogic.PlayerLogic;
 using NitroxClient.GameLogic.PlayerLogic.PlayerModel;
 using NitroxClient.GameLogic.PlayerLogic.PlayerModel.Abstract;
 using NitroxClient.MonoBehaviours;
@@ -24,6 +25,7 @@ namespace NitroxClient.GameLogic
         public GameObject Body { get; }
         public GameObject PlayerModel { get; }
         public Rigidbody RigidBody { get; }
+        public CapsuleCollider Collider { get; private set; }
         public ArmsController ArmsController { get; }
         public AnimationController AnimationController { get; }
         public ItemsContainer Inventory { get; }
@@ -84,6 +86,7 @@ namespace NitroxClient.GameLogic
             playerModelManager.BeginApplyPlayerColor(this);
             playerModelManager.RegisterEquipmentVisibilityHandler(PlayerModel);
             UpdateEquipmentVisibility();
+            SetupBody();
             SetupSkyAppliers();
 
             ErrorMessage.AddMessage($"{PlayerName} joined the game.");
@@ -97,11 +100,13 @@ namespace NitroxClient.GameLogic
             {
                 UWE.Utils.ZeroTransform(Body);
             }
+            SkyEnvironmentChanged.Broadcast(Body, transform);
         }
 
         public void Detach()
         {
             Body.transform.SetParent(null);
+            SkyEnvironmentChanged.Broadcast(Body, (GameObject)null);
         }
 
         public void UpdatePosition(Vector3 position, Vector3 velocity, Quaternion bodyRotation, Quaternion aimingRotation)
@@ -120,8 +125,8 @@ namespace NitroxClient.GameLogic
                 bodyRotation = vehicleAngle * bodyRotation;
                 aimingRotation = vehicleAngle * aimingRotation;
             }
-            RigidBody.velocity = AnimationController.Velocity = MovementHelper.GetCorrectedVelocity(position, velocity, Body, PlayerMovement.BROADCAST_INTERVAL);
-            RigidBody.angularVelocity = MovementHelper.GetCorrectedAngularVelocity(bodyRotation, Vector3.zero, Body, PlayerMovement.BROADCAST_INTERVAL);
+            RigidBody.velocity = AnimationController.Velocity = MovementHelper.GetCorrectedVelocity(position, velocity, Body, PlayerMovementBroadcaster.BROADCAST_INTERVAL);
+            RigidBody.angularVelocity = MovementHelper.GetCorrectedAngularVelocity(bodyRotation, Vector3.zero, Body, PlayerMovementBroadcaster.BROADCAST_INTERVAL);
 
             AnimationController.AimingRotation = aimingRotation;
             AnimationController.UpdatePlayerAnimations = true;
@@ -133,9 +138,17 @@ namespace NitroxClient.GameLogic
             {
                 PilotingChair = newPilotingChair;
 
-                Validate.NotNull(SubRoot, "Player changed PilotingChair but is not in SubRoot!");
+                MultiplayerCyclops mpCyclops = null;
 
-                MultiplayerCyclops mpCyclops = SubRoot.GetComponent<MultiplayerCyclops>();
+                // For unexpected and expected cases, for example when a player is driving a cyclops but the cyclops is destroyed
+                if (!SubRoot)
+                {
+                    Log.Error("Player changed PilotingChair but is not in SubRoot!");
+                }
+                else
+                {
+                    mpCyclops = SubRoot.GetComponent<MultiplayerCyclops>();
+                }
 
                 if (PilotingChair)
                 {
@@ -150,8 +163,11 @@ namespace NitroxClient.GameLogic
                     SetSubRoot(SubRoot);
                     ArmsController.SetWorldIKTarget(null, null);
 
-                    mpCyclops.CurrentPlayer = null;
-                    mpCyclops.Exit();
+                    if (mpCyclops)
+                    {
+                        mpCyclops.CurrentPlayer = null;
+                        mpCyclops.Exit();
+                    }
                 }
 
                 RigidBody.isKinematic = AnimationController["cyclops_steering"] = newPilotingChair != null;
@@ -162,7 +178,6 @@ namespace NitroxClient.GameLogic
         {
             if (SubRoot != newSubRoot)
             {
-                SkyEnvironmentChanged.Broadcast(Body, newSubRoot);
                 if (newSubRoot)
                 {
                     Attach(newSubRoot.transform, true);
@@ -180,7 +195,6 @@ namespace NitroxClient.GameLogic
         {
             if (EscapePod != newEscapePod)
             {
-                SkyEnvironmentChanged.Broadcast(Body, newEscapePod);
                 if (newEscapePod)
                 {
                     Attach(newEscapePod.transform, true);
@@ -237,6 +251,16 @@ namespace NitroxClient.GameLogic
                 AnimationController["in_exosuit"] = AnimationController["using_mechsuit"] = newVehicle is Exosuit;
             }
         }
+        
+        /// <summary>
+        /// Drops the remote player, swimming where he is
+        /// </summary>
+        public void ResetStates()
+        {
+            SetVehicle(null);
+            SetSubRoot(null);
+            AnimationController.UpdatePlayerAnimations = true;
+        }
 
         public void Destroy()
         {
@@ -245,7 +269,7 @@ namespace NitroxClient.GameLogic
             Object.DestroyImmediate(Body);
         }
 
-        public void UpdateAnimation(AnimChangeType type, AnimChangeState state)
+        public void UpdateAnimationAndCollider(AnimChangeType type, AnimChangeState state)
         {
             switch (type)
             {
@@ -257,6 +281,18 @@ namespace NitroxClient.GameLogic
                     AnimationController["bench_sit"] = state == AnimChangeState.ON;
                     AnimationController["bench_stand_up"] = state == AnimChangeState.OFF;
                     break;
+            }
+
+            // Change two parameters of the collider depending on the state of the player
+            if (AnimationController["is_underwater"])
+            {
+                Collider.center = new(0f, -0.3f, 0f);
+                Collider.height = 0.5f;
+            }
+            else
+            {
+                Collider.center = new(0f, -0.8f, 0f);
+                Collider.height = 1.5f;
             }
         }
 
@@ -283,6 +319,32 @@ namespace NitroxClient.GameLogic
             playerModelManager.UpdateEquipmentVisibility(new ReadOnlyCollection<TechType>(equipment.ToList()));
         }
         
+        /// <summary>
+        /// Makes the RemotePlayer recognizable as an obstacle for buildings.
+        /// </summary>
+        private void SetupBody()
+        {
+            RemotePlayerIdentifier identifier = Body.AddComponent<RemotePlayerIdentifier>();
+            identifier.RemotePlayer = this;
+            
+            if (Player.mainCollider is CapsuleCollider refCollider)
+            {
+                // This layer lets us have a collider as a trigger without preventing its detection as an obstacle
+                Body.layer = LayerID.Useable;
+                Collider = Body.AddComponent<CapsuleCollider>();
+                
+                Collider.center = Vector3.zero;
+                Collider.radius = refCollider.radius;
+                Collider.direction = refCollider.direction;
+                Collider.contactOffset = refCollider.contactOffset;
+                Collider.isTrigger = true;
+            }
+            else
+            {
+                Log.Warn("The main collider of the main Player couldn't be found or is not a CapsuleCollider. Collisions for the RemotePlayer won't be created");
+            }
+        }
+
         /// <summary>
         /// Allows the remote player model to have its lightings dynamicly adjusted
         /// </summary>

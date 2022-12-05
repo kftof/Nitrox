@@ -89,6 +89,10 @@ namespace NitroxClient.GameLogic.InitialSync
                 {
                     Player.main.infectionRevealed = true;
                 }
+
+                // We need to make the player invincible before he finishes loading because in some cases he will eventually die before loading
+                Player.main.liveMixin.invincible = true;
+                Player.main.FreezeStats();
             }
             // We need to start it at least once for everything that's in the PDA to load
             Player.main.GetPDA().Open(PDATab.Inventory);
@@ -101,7 +105,7 @@ namespace NitroxClient.GameLogic.InitialSync
             GameModeUtils.SetGameMode((GameModeOption)(int)gameMode, GameModeOption.None);
         }
 
-        private void SetPlayerCompletedGoals(ISet<string> completedGoals)
+        private void SetPlayerCompletedGoals(IEnumerable<string> completedGoals)
         {
             GoalManager.main.completedGoalNames.AddRange(completedGoals);
             PlayerWorldArrows.main.completedCustomGoals.AddRange(completedGoals);

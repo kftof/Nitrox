@@ -97,13 +97,23 @@ namespace NitroxServer.GameLogic.Bases
             }
         }
 
-        public void BasePieceDeconstructionBegin(NitroxId id)
+        public void BasePieceForceDeconstruct(NitroxId id)
         {
-            BasePiece basePiece;
-
             lock (completedBasePieceHistory)
             {
-                basePiece = completedBasePieceHistory.Find(piece => piece.Id == id);
+                BasePiece basePiece = completedBasePieceHistory.Find(piece => piece.Id.Equals(id));
+                if (basePiece != null)
+                {
+                    completedBasePieceHistory.Remove(basePiece);
+                }
+            }
+        }
+
+        public void BasePieceDeconstructionBegin(NitroxId id)
+        {
+            lock (completedBasePieceHistory)
+            {
+                BasePiece basePiece = completedBasePieceHistory.Find(piece => piece.Id.Equals(id));
 
                 if (basePiece != null)
                 {
@@ -125,15 +135,24 @@ namespace NitroxServer.GameLogic.Bases
             {
                 partiallyConstructedPiecesById.Remove(id);
             }
+
+            //  Catch-all precaution in case BasePieceDeconstructionBegin() wasn't called properly.
+            lock (completedBasePieceHistory)
+            {
+                BasePiece basePiece = completedBasePieceHistory.Find(piece => piece.Id.Equals(id));
+
+                if (basePiece != null)
+                {
+                    completedBasePieceHistory.Remove(basePiece);
+                }
+            }
         }
 
         public void UpdateBasePieceMetadata(NitroxId id, BasePieceMetadata metadata)
         {
-            BasePiece basePiece;
-
             lock (completedBasePieceHistory)
             {
-                basePiece = completedBasePieceHistory.Find(piece => piece.Id == id);
+                BasePiece basePiece = completedBasePieceHistory.Find(piece => piece.Id.Equals(id));
 
                 if (basePiece != null)
                 {

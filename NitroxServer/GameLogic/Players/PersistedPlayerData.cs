@@ -33,22 +33,28 @@ namespace NitroxServer.GameLogic.Players
         public NitroxVector3 SpawnPosition { get; set; }
 
         [JsonProperty, ProtoMember(8)]
-        public PlayerStatsData CurrentStats { get; set; }
+        public NitroxQuaternion SpawnRotation { get; set; }
 
         [JsonProperty, ProtoMember(9)]
-        public NitroxId SubRootId { get; set; }
+        public PlayerStatsData CurrentStats { get; set; }
 
         [JsonProperty, ProtoMember(10)]
-        public Perms Permissions { get; set; }
+        public NitroxId SubRootId { get; set; }
 
         [JsonProperty, ProtoMember(11)]
-        public NitroxId NitroxId { get; set; }
+        public Perms Permissions { get; set; }
 
         [JsonProperty, ProtoMember(12)]
-        public bool IsPermaDeath { get; set; }
+        public NitroxId NitroxId { get; set; }
 
         [JsonProperty, ProtoMember(13)]
+        public bool IsPermaDeath { get; set; }
+
+        [JsonProperty, ProtoMember(14)]
         public HashSet<string> CompletedGoals { get; set; } = new HashSet<string>();
+
+        [JsonProperty, ProtoMember(15)]
+        public Dictionary<string, PingInstancePreference> PingInstancePreferences { get; set; } = new();
 
         public Player ToPlayer()
         {
@@ -58,6 +64,7 @@ namespace NitroxServer.GameLogic.Players
                               null, //no connection/context as this player is not connected.
                               null,
                               SpawnPosition,
+                              SpawnRotation,
                               NitroxId,
                               Optional.OfNullable(SubRootId),
                               Permissions,
@@ -66,7 +73,8 @@ namespace NitroxServer.GameLogic.Players
                               QuickSlotsBinding,
                               EquippedItems,
                               Modules,
-                              CompletedGoals);
+                              CompletedGoals,
+                              PingInstancePreferences);
         }
 
         public static PersistedPlayerData FromPlayer(Player player)
@@ -80,12 +88,14 @@ namespace NitroxServer.GameLogic.Players
                 Modules = player.GetModules(),
                 Id = player.Id,
                 SpawnPosition = player.Position,
+                SpawnRotation = player.Rotation,
                 CurrentStats = player.Stats,
                 SubRootId = player.SubRootId.OrNull(),
                 Permissions = player.Permissions,
                 NitroxId = player.GameObjectId,
                 IsPermaDeath = player.IsPermaDeath,
-                CompletedGoals = new HashSet<string>(player.CompletedGoals)
+                CompletedGoals = new(player.CompletedGoals),
+                PingInstancePreferences = new(player.PingInstancePreferences)
             };
         }
     }
