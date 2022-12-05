@@ -3,11 +3,13 @@
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
         <Nullable>disable</Nullable>
+        <Platforms>AnyCPU;x64</Platforms>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Autofac" Version="4.9.4" />
         <PackageReference Include="LiteNetLib" Version="0.8.3.1" />
+        <PackageReference Include="LitJson" Version="0.18.0" />
         <PackageReference Include="Microsoft.CodeAnalysis" Version="4.2.0">
           <PrivateAssets>all</PrivateAssets>
         </PackageReference>

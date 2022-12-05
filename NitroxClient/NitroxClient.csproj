@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
         <Nullable>disable</Nullable>
+        <Platforms>AnyCPU;x64</Platforms>
     </PropertyGroup>
 
     <ItemGroup>
@@ -25,6 +26,7 @@
 
     <ItemGroup>
       <PackageReference Include="DiscordGameSDKWrapper" Version="3.2.1" />
+      <PackageReference Include="LitJson" Version="0.18.0" />
     </ItemGroup>
 
 </Project>

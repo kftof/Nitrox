@@ -4,6 +4,7 @@
         <TargetFramework>net472</TargetFramework>
         <RootNamespace>NitroxModel_Subnautica</RootNamespace>
         <Nullable>disable</Nullable>
+        <Platforms>AnyCPU;x64</Platforms>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="LitJson" Version="0.16.0" />
+      <PackageReference Include="LitJson" Version="0.18.0" />
     </ItemGroup>
 
 </Project>
